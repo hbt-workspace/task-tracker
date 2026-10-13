@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TaskTrackerBot.Data;
 using TaskTrackerBot.Services;
 
@@ -12,6 +13,25 @@ namespace TaskTrackerBot;
 /// </summary>
 public partial class App : Application
 {
+    #region Fields and Constructor
+
+    public static IConfiguration Configuration { get; private set; } = null!;
+    public static string ConnectionString { get; private set; } = string.Empty;
+
+    public App()
+    {
+        Configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
+        ConnectionString = Configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException(
+                "Connection string 'DefaultConnection' was not found.");
+    }
+
+    #endregion
+
     #region On Startup Method
 
     // OnStartup method for the application.
@@ -45,7 +65,7 @@ public partial class App : Application
     {
         var options = new DbContextOptionsBuilder<TaskTrackerDbContext>();
 
-        options.UseSqlServer(DatabaseSettings.ConnectionString);
+        options.UseSqlServer(ConnectionString);
 
         return new TaskTrackerDbContext(options.Options);
     }
