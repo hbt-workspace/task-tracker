@@ -12,7 +12,7 @@ using TaskTrackerBot.Data;
 namespace TaskTrackerBot.Data.Migrations
 {
     [DbContext(typeof(TaskTrackerDbContext))]
-    [Migration("20261012113425_InitialCreate")]
+    [Migration("20261013122809_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
