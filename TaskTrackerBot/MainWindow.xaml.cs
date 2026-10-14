@@ -118,7 +118,9 @@ public partial class MainWindow : Window
                     todayTask,
                     obstacle);
 
-                MessageBox.Show("Your daily report has been submitted successfully!");
+                var successWindow = new MessageBoxWindow();
+                successWindow.Owner = this;
+                successWindow.ShowDialog();
                 Close();
             }
             catch (Exception ex)
