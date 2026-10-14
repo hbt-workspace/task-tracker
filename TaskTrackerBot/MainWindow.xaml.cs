@@ -33,12 +33,15 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
         Loaded += async (sender, e) =>
         {
             var userService = new UserService();
             var user = await userService.GetOrCreateUserAsync();
             currentUserId = user.Id;
         };
+
+        AnswerTextBox.Focus();
     }
 
     #endregion
@@ -86,6 +89,7 @@ public partial class MainWindow : Window
             yesterdayTask = answer;
             currentStep = 2;
             AnswerTextBox.Clear();
+            AnswerTextBox.Focus();
 
             var stackPanel = (StackPanel)AnswerTextBox.Parent;
             ((TextBlock)stackPanel.Children[0]).Text = "STEP 2 OF 3";
@@ -97,6 +101,7 @@ public partial class MainWindow : Window
             todayTask = answer;
             currentStep = 3;
             AnswerTextBox.Clear();
+            AnswerTextBox.Focus();
             NextButton.Content = "Submit";
 
             var stackPanel = (StackPanel)AnswerTextBox.Parent;

@@ -9,8 +9,7 @@ public class TaskTrackerDbContext : DbContext
 {
     #region Constructor
 
-    public TaskTrackerDbContext(
-        DbContextOptions<TaskTrackerDbContext> options)
+    public TaskTrackerDbContext(DbContextOptions<TaskTrackerDbContext> options)
         : base(options)
     {
     }
