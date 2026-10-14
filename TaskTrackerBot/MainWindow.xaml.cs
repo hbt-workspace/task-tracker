@@ -128,7 +128,7 @@ public partial class MainWindow : Window
                 successWindow.ShowDialog();
                 Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 var errorWindow = new MessageBoxWindow("❌", "Failed to submtit!", "Could not send your report.");
                 errorWindow.Owner = this;
