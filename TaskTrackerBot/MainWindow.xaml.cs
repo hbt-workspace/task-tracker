@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     private int currentUserId;
 
     #endregion
-    
+
     #region Constructor
 
     // Constructor 
@@ -118,16 +118,16 @@ public partial class MainWindow : Window
                     todayTask,
                     obstacle);
 
-                var successWindow = new MessageBoxWindow();
+                var successWindow = new MessageBoxWindow("✔", "Report submitted!", "Your daily report has been sent successfully.");
                 successWindow.Owner = this;
                 successWindow.ShowDialog();
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Could not save your report:\n{ex.Message}",
-                    "Save Error");
+                var errorWindow = new MessageBoxWindow("❌", "Failed to submtit!", "Could not send your report.");
+                errorWindow.Owner = this;
+                errorWindow.ShowDialog();
             }
         }
     }

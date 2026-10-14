@@ -29,13 +29,15 @@
 
             <StackPanel VerticalAlignment="Center">
 
-                <Border Width="68"
+                <Border Name="IconBorder"
+                        Width="68"
                         Height="68"
                         CornerRadius="34"
                         Background="#173D32"
                         HorizontalAlignment="Center"
                         Margin="0,0,0,18">
-                    <TextBlock Text="✓"
+                    <TextBlock Name="IconTextBlock"
+                               Text="✔"
                                Foreground="#4ADE80"
                                FontSize="36"
                                FontWeight="Bold"
@@ -43,14 +45,16 @@
                                VerticalAlignment="Center"/>
                 </Border>
 
-                <TextBlock Text="Report submitted!"
+                <TextBlock Name="MessageTextBlock"
+                           Text="Report submitted!"
                            Foreground="#F4F5FB"
                            FontSize="22"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"
                            Margin="0,0,0,10"/>
 
-                <TextBlock Text="Your daily report has been saved successfully."
+                <TextBlock Name="DescriptionTextBlock"
+                           Text="Your daily report has been sent successfully."
                            Foreground="#A3AAC0"
                            FontSize="13"
                            TextAlignment="Center"
