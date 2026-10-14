@@ -19,7 +19,7 @@ WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
-SetupIconFile=E:\HBT Workspace\Internal Project\Published\TaskTracker\TaskTrackerBot\Assets\daily-calendar.ico
+SetupIconFile=E:\HBTW\Internal Projects\Published\TaskTrackerBot\TaskTrackerBot_Publish_2026_10_13\Assets\daily-calendar.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -29,7 +29,7 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 Name: "startup"; Description: "Launch Task Tracker Bot automatically when Windows starts"; GroupDescription: "Additional options:"; Flags: unchecked
 
 [Files]
-Source: "E:\HBT Workspace\Internal Project\Published\TaskTracker\TaskTrackerBot\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\HBTW\Internal Projects\Published\TaskTrackerBot\TaskTrackerBot_Publish_2026_10_13\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\Task Tracker Bot"; Filename: "{app}\{#MyAppExeName}"

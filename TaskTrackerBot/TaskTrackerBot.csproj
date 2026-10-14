@@ -9,8 +9,11 @@
     <ApplicationIcon>Assets\daily-calendar.ico</ApplicationIcon>
   </PropertyGroup>
 
-    <ItemGroup>
-    <Resource Include="Assets\daily-calendar.ico" />
+  <ItemGroup>
+    <Content Include="Assets\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
