@@ -188,6 +188,15 @@ public partial class MainWindow : Window
         await LoadEmployeeReportsAsync();
     }
 
+    // Opens the Search Window when the navbar Search button is clicked.
+    private void SearchButton_Click(object sender, RoutedEventArgs e)
+    {
+        SearchWindow searchWindow = new SearchWindow();
+        Application.Current.MainWindow = searchWindow;
+        searchWindow.Show();
+        Close();
+    }
+
     #endregion
 
     #region Methods for Loading Employee Reports

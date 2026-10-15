@@ -5,11 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskTrackerAdminPanel"
         mc:Ignorable="d"
-        Title="Task Tracker"
-        Height="650"
-        Width="1000"
-        MinHeight="600"
-        MinWidth="900"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -76,6 +72,55 @@
                     <StackPanel Grid.Column="2"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
+
+                        <!-- Search Button -->
+                        <Button Height="38"
+                                Padding="12,0"
+                                Margin="0,0,10,0"
+                                Background="Transparent"
+                                Foreground="#C5CAD8"
+                                BorderThickness="0"
+                                FontSize="13"
+                                Cursor="Hand"
+                                ToolTip="Search employee reports"
+                                Click="SearchButton_Click">
+
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                <Path Width="18"
+                                      Height="18"
+                                      Margin="0,0,8,0"
+                                      Stroke="#FFFFFF"
+                                      StrokeThickness="1.6"
+                                      StrokeStartLineCap="Round"
+                                      StrokeEndLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      Data="M 11,11 L 16,16 M 12,7 A 5,5 0 1 1 2,7 A 5,5 0 1 1 12,7"/>
+
+                                <TextBlock Text="Search"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background"
+                                            Value="Transparent"/>
+                                    <Setter Property="Foreground"
+                                            Value="#C5CAD8"/>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#343A4B"/>
+                                            <Setter Property="Foreground"
+                                                    Value="White"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
 
                         <!-- Minimize Button -->
                         <Button Content="—"
