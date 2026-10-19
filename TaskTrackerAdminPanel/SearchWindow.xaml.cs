@@ -142,7 +142,6 @@ public partial class SearchWindow : Window
 
     #region Event Handlers
 
-
     // Searches reports using the selected employee and date range.
     private async void SearchReportsButton_Click(object sender, RoutedEventArgs e)
     {
@@ -197,7 +196,7 @@ public partial class SearchWindow : Window
 
             // Retrieve matching reports from the database.
             var reports = await query
-                .OrderBy(item => item.task.CreatedOn)
+                .OrderByDescending(item => item.task.CreatedOn)
                 .ThenBy(item => item.user.UserName)
                 .Select(item => new EmployeeReportResult
                 {
@@ -212,7 +211,7 @@ public partial class SearchWindow : Window
             // Group reports by date.
             var groupedReports = reports
                 .GroupBy(report => report.ReportDate?.Date)
-                .OrderBy(group => group.Key)
+                .OrderByDescending(group => group.Key)
                 .ToList();
 
             SearchResultsItemsControl.ItemsSource = groupedReports;
