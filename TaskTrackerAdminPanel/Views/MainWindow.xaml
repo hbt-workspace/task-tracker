@@ -241,7 +241,7 @@
 
                     <!-- Heading -->
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="Employee Reports"
+                        <TextBlock Text="Today's Employee Reports"
                                    Foreground="#F4F5FB"
                                    FontSize="28"
                                    FontWeight="SemiBold"/>
