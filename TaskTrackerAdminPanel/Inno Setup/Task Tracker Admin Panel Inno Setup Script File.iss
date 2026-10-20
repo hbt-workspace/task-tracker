@@ -19,7 +19,7 @@ WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
-SetupIconFile=E:\HBT Workspace\Internal Project\Published\TaskTrackerAdminPanel\TaskTrackerAdminPanel_Publish_2026_10_15\Assets\task_management.ico
+SetupIconFile=E:\HBTW\Internal Projects\Published\TaskTrackerAdminPanel\TaskTrackerAdminPanel_Publish_2026_10_17\Assets\task_management.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -29,7 +29,7 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 Name: "startup"; Description: "Launch Task Tracker Admin Panel automatically when Windows starts"; GroupDescription: "Additional options:"; Flags: unchecked
 
 [Files]
-Source: "E:\HBT Workspace\Internal Project\Published\TaskTrackerAdminPanel\TaskTrackerAdminPanel_Publish_2026_10_15\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\HBTW\Internal Projects\Published\TaskTrackerAdminPanel\TaskTrackerAdminPanel_Publish_2026_10_17\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\Task Tracker Admin Panel"; Filename: "{app}\{#MyAppExeName}"
