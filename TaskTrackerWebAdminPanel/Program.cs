@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using TaskTrackerWebAdminPanel.Data;
+
+// Create the builder and add services
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the database context
+builder.Services.AddDbContext<TaskTrackerDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -13,17 +21,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Https redirection & Routing
 app.UseHttpsRedirection();
 app.UseRouting();
 
+// Use authorization
 app.UseAuthorization();
 
+// Use static files
 app.MapStaticAssets();
 
+// Default route for the admin panel
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
+// Start the application
 app.Run();

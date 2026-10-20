@@ -1,8 +1,123 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<TaskTrackerWebAdminPanel.Models.EmployeeTaskReportViewModel>
+
+@{
+    ViewData["Title"] = "Employee Reports";
+    var reports = Model ?? new List<TaskTrackerWebAdminPanel.Models.EmployeeTaskReportViewModel>();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/employee-task.css" asp-append-version="true" />
+
+<div class="employee-dashboard container-fluid p-4">
+
+   
+    <!-- Dashboard Heading -->
+    <div class="dashboard-heading d-flex justify-content-between align-items-center gap-4 mb-4">
+
+        <div class="dashboard-heading-content">            
+
+            <h1 class="dashboard-title mb-0">
+                Today's Employee Reports
+            </h1>
+
+            <p class="dashboard-subtitle mt-2 mb-3">
+                Review employee progress and daily updates. 
+            </p>
+
+            <div class="dashboard-date">
+                <i class="bi bi-calendar3"></i>
+                <span>Today, @DateTime.Today.ToString("dd MMMM yyyy")</span>
+            </div>
+        </div>
+
+        <a asp-controller="Home" asp-action="Index"
+           class="btn btn-primary refresh-button d-inline-flex align-items-center justify-content-center gap-2">
+
+            <i class="bi bi-arrow-clockwise reload-icon"></i>
+            <span>Refresh Reports</span>
+        </a>
+
+    </div>
+
+
+    @if (reports.Count == 0)
+    {
+        <!-- Empty State -->
+        <div class="empty-state text-center p-5 rounded-3">
+            <div class="empty-state-icon mb-3" aria-hidden="true">
+                <i class="bi bi-inbox"></i>
+            </div>
+
+            <h3 class="mb-2">No reports submitted yet</h3>
+
+            <p class="mb-0">
+                Employee reports submitted today will appear here.
+            </p>
+        </div>
+    }
+    else
+    {
+        <!-- Reports List -->
+        <div class="reports-list d-flex flex-column gap-3">
+
+            @foreach (var report in reports)
+            {
+                <article class="report-card card">
+                    <!-- Employee Information -->
+                    <div class="report-header d-flex justify-content-between align-items-center gap-3 mb-3">
+                        <div class="employee-identity d-flex align-items-center gap-3">
+                            <div class="employee-info">
+                                <div class="employee-name">@report.EmployeeName</div>
+                                <div class="report-date mt-1">
+                                    Report date:@(report.CreatedOn?.ToString("dd MMM yyyy, hh:mm tt") ?? "Time unavailable")
+                                </div>
+                            </div>
+                        </div>
+                        <span class="badge submitted-badge">Submitted</span>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="report-divider mt-0 mb-3" />
+
+                    <!-- Task Details -->
+                    <div class="row g-4 report-details">
+                        <div class="col-12 col-md-6 col-xl-4 report-field">
+                            <div class="field-title mb-2">
+                                YESTERDAY'S TASK
+                            </div>
+                            <div class="field-content @(string.IsNullOrWhiteSpace(report.YesterdaysTask) ? "field-empty" : "")">
+                                @(string.IsNullOrWhiteSpace(report.YesterdaysTask)
+                                    ? "No details provided.": report.YesterdaysTask)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4 report-field">
+                            <div class="field-title mb-2">
+                                TODAY'S TASK
+                            </div>
+
+                            <div class="field-content @(string.IsNullOrWhiteSpace(report.TodaysTask) ? "field-empty" : "")">
+                                @(string.IsNullOrWhiteSpace(report.TodaysTask)
+                                    ? "No details provided.": report.TodaysTask)
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4 report-field">
+                            <div class="field-title mb-2">
+                                OBSTACLES
+                            </div>
+
+                            <div
+                                class="field-content obstacle-content @(string.IsNullOrWhiteSpace(report.Obstacle) ? "field-empty" : "")">
+                                @(string.IsNullOrWhiteSpace(report.Obstacle)
+                                    ? "No obstacles reported.": report.Obstacle)
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+            }
+
+        </div>
+    }
+
 </div>

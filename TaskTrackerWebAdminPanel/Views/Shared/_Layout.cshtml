@@ -1,12 +1,15 @@
 ﻿@{
     const string companyName = "HBT Workspace";
-    const string ApplicationName = "Task Tracker Admin Panel";
+    const string applicationName = "Task Tracker Admin Panel";
     const int InceptionYear = 2026;
     var currentYear = DateTime.Now.Year;
 
     var copyrightYear = currentYear == InceptionYear
         ? InceptionYear.ToString()
         : $"{InceptionYear}-{currentYear}";
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 }
 
 <!DOCTYPE html>
@@ -16,55 +19,118 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>@ViewData["Title"] - @ApplicationName</title>
+    <title>@ViewData["Title"] - @applicationName</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TaskTrackerWebAdminPanel.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.min.css" asp-append-version="true" />
+
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom shadow-sm mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    @ApplicationName
+   
+   
+    <!-- Header and Navigation -->
+    <header class="hbt-header">
+        <nav class="navbar navbar-expand-md hbt-navbar">
+            <div class="container-fluid p-0">
+
+                <!-- Company Logo and Name -->
+                <a class="hbt-brand" asp-controller="Home" asp-action="Index">
+                    <img src="~/Assets/HBTLogo.ico" alt="HBT Workspace Logo" class="hbt-brand-logo" />
+
+                    <span class="hbt-brand-text">
+                        <span class="d-block hbt-brand-company">@companyName</span>
+                        <span class="d-block hbt-brand-product">TASK TRACKER</span>
+                    </span>
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!-- Theme Switcher + Mobile Menu -->
+                <div class="hbt-header-controls">
+                    <!-- Single Theme Switcher -->
+                    <button type="button" id="themeToggle" class="theme-toggle-button"
+                            aria-label="Switch to light theme" title="Switch to light theme">
+                        <i class="bi bi-sun-fill" id="themeToggleIcon"></i>
+                    </button>
 
+                    <!-- Mobile Hamburger -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="hbt-toggler-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+
+                </div>
+
+                <!-- Navigation Links -->
                 <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav ms-auto hbt-navbar-links">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                Home
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                               asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door-fill hbt-nav-icon"></i>
+                                Dashboard
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Search" ? "active" : "")"
+                               asp-controller="Home" asp-action="Search">
+                                <i class="bi bi-search hbt-nav-icon"></i>
+                                Search Employee Reports
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Privacy" ? "active" : "")"
+                               asp-controller="Home" asp-action="Privacy">
+                                <i class="bi bi-shield-lock-fill hbt-nav-icon"></i>
                                 Privacy
                             </a>
                         </li>
                     </ul>
+
+                    <!-- Admin Status -->
+                    <div class="hbt-header-tag ms-md-4 mt-3 mt-md-0">
+                        <span class="hbt-online-dot"></span>
+                        Admin Panel
+                    </div>
                 </div>
+
             </div>
         </nav>
     </header>
 
-    <main class="container pb-3" role="main">
+    <!-- Main Page Content -->
+    <main class="hbt-main" role="main">
         @RenderBody()
     </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @copyrightYear - <a asp-controller="Home" asp-action="Privacy">@companyName</a>. All rights reserved.
+    <!-- Footer -->
+    <footer class="hbt-footer">
+        <div class="hbt-footer-inner">
+            <div>
+                <div class="hbt-footer-brand">
+                    @companyName <span class="hbt-footer-separator">/</span> Task Tracker
+                </div>
+                <div class="hbt-footer-copy mt-1">
+                    &copy; @copyrightYear
+                    <a href="https://hbtworkspace.in" target="_blank" rel="noopener noreferrer">@companyName</a>.
+                    All rights reserved.
+                </div>
+            </div>
+
+            <div class="hbt-footer-right">
+                HBT Employee Reporting Portal
+            </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
