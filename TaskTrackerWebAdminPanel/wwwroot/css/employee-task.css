@@ -211,7 +211,7 @@
 }
 
 .report-field:nth-child(3) .field-title {
-    color: #FBBF24;
+    color: #F0A45D;
 }
 
 .field-content {
@@ -293,10 +293,8 @@
     }
 }
 
-/* =========================================
-   LIGHT THEME - EMPLOYEE REPORTS
-   Keep this block at the end of employee-task.css
-   ========================================= */
+/* LIGHT THEME - EMPLOYEE REPORTS
+   Keep this block at the end of employee-task.css */
 
 :root[data-theme="light"] .employee-dashboard {
     background: #FFFFFF;

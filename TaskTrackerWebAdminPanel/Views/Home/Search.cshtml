@@ -1,0 +1,169 @@
+@model TaskTrackerWebAdminPanel.Models.EmployeeTaskSearchViewModel
+
+@{
+    ViewData["Title"] = "Search Employee Reports";
+}
+
+<link rel="stylesheet" href="~/css/employee-search.css" asp-append-version="true" />
+
+
+<div class="employee-search-page">
+
+    <!-- Page Heading -->
+    <div class="search-page-heading">
+        <div>
+            <h1>Search Employee Reports</h1>
+            <p>Find reports by employee and date range.</p>
+        </div>
+
+        <div class="search-heading-icon">
+            <i class="bi bi-search"></i>
+        </div>
+    </div>
+
+    <!-- Search Filters -->
+    <section class="search-filter-panel">
+        <div class="search-panel-heading">
+            <div class="search-panel-icon">
+                <i class="bi bi-sliders"></i>
+            </div>
+            <div>
+                <h2>Search Filters</h2>
+                <p>Select an employee and a date range.</p>
+            </div>
+        </div>
+
+        <form asp-controller="Home" asp-action="Search" method="get">
+
+            <div asp-validation-summary="ModelOnly" class="search-validation-summary"></div>
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-lg-4">
+                    <label asp-for="SelectedUserId" class="form-label">Employee</label>
+                    <select asp-for="SelectedUserId" asp-items="Model.Employees" class="form-select search-input">
+                    </select>
+                </div>
+            
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label asp-for="FromDate" class="form-label">From Date</label>
+                    <input asp-for="FromDate" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control search-input" required />
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label asp-for="ToDate" class="form-label">To Date</label>
+                    <input asp-for="ToDate" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control search-input" required />
+                </div>
+
+                <div class="col-12 col-lg-2">
+                    <button type="submit" class="btn search-submit-button w-100">
+                        <i class="bi bi-search me-2"></i>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <div class="search-filter-footer">
+                <span>
+                    <i class="bi bi-info-circle me-1"></i>
+                    Both dates are inclusive.
+                </span>
+
+                <a asp-controller="Home" asp-action="Search" class="search-reset-link">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>
+                    Clear filters
+                </a>
+            </div>
+        </form>
+    </section>
+   
+    <!-- Report Results -->
+    <section class="search-results-section">
+        <div class="search-results-heading">
+            <div class="search-results-title">
+                <h2>
+                    <i class="bi bi-clipboard-data"></i>
+                    Report Results
+                </h2>
+
+                <p>
+                    @(Model.SearchPerformed? "Here are the reports matching your filters.": "Select your filters and click Search to view reports.")
+                </p>
+            </div>
+
+            @if (Model.SearchPerformed)
+            {
+                <span class="report-count-badge">
+                    <i class="bi bi-file-earmark-text"></i>
+                    @Model.Reports.Count reports found
+                </span>
+            }
+        </div>
+
+        @if (!Model.SearchPerformed)
+        {
+            <div class="search-empty-state">
+                <div class="search-empty-icon">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h3>Ready to search?</h3>
+                <p>Choose an employee and date range, then click Search.</p>
+            </div>
+        }
+        else if (Model.Reports.Count == 0 && ViewData.ModelState.IsValid)
+        {
+            <div class="search-empty-state">
+                <div class="search-empty-icon">
+                    <i class="bi bi-inbox"></i>
+                </div>
+                <h3>No reports found</h3>
+                <p>Try changing your employee or date filters.</p>
+            </div>
+        }
+        else if (Model.Reports.Count > 0)
+        {
+            <div class="search-date-groups">
+
+                @foreach (var group in Model.DateGroups)
+                {
+                    <article class="search-date-card">
+                        <div class="search-date-heading">
+                            <h3>Date: @group.ReportDate.ToString("dd-MM-yyyy")</h3>
+                        </div>
+                        <div class="search-date-divider"></div>
+                        <div class="search-table-scroll">
+                            <table class="search-employee-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Yesterday's Task</th>
+                                        <th>Today's Task</th>
+                                        <th>Obstacle</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var report in group.Reports)
+                                    {
+                                        <tr>
+                                            <td class="search-name-cell">@report.EmployeeName</td>
+                                            <td>@(string.IsNullOrWhiteSpace(report.YesterdaysTask)
+                                                    ? "No details provided.": report.YesterdaysTask)
+                                            </td>
+                                            <td>@(string.IsNullOrWhiteSpace(report.TodaysTask)
+                                                    ? "No details provided.": report.TodaysTask)
+                                            </td>
+                                            <td>@(string.IsNullOrWhiteSpace(report.Obstacle)
+                                                    ? "No obstacles reported.": report.Obstacle)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                }
+
+            </div>
+        }
+
+    </section>
+</div>
