@@ -30,6 +30,7 @@
                     Background="#202432"
                     BorderBrush="#343A4B"
                     BorderThickness="0,0,0,1"
+                    CornerRadius="14,14,0,0"
                     Padding="24,10">
 
                 <Grid MouseLeftButtonDown="Header_MouseLeftButtonDown">
